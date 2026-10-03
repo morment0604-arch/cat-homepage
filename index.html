@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>しっぽ便り｜わたしの、やさしい毎日。</title>
+
+    <meta
+      name="description"
+      content="愛猫フェルの日常やプロフィール、写真を紹介する小さなホームページです。"
+    />
+
+    <!-- Google Fonts（見出し用の明朝体・本文用のゴシック体・英字の手書き風フォント） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Caveat:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- スタイルシート -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ============================================================
+       1. ヘッダー
+       ============================================================ -->
+    <header class="header" id="header">
+      <div class="header__inner">
+        <!-- サイト名（クリックするとページの先頭へ戻ります） -->
+        <a href="#top" class="logo">
+          <span class="logo__name">しっぽ便り</span>
+          <span class="logo__tagline">わたしの、やさしい毎日。</span>
+        </a>
+
+        <!-- スマートフォン用メニューボタン（ハンバーガーボタン） -->
+        <button
+          class="menu-btn"
+          id="menuBtn"
+          type="button"
+          aria-label="メニューを開く"
+          aria-expanded="false"
+          aria-controls="globalNav"
+        >
+          <span class="menu-btn__bar"></span>
+          <span class="menu-btn__bar"></span>
+          <span class="menu-btn__bar"></span>
+        </button>
+
+        <!-- ナビゲーションメニュー（クリックすると各セクションまでスクロールします） -->
+        <nav class="nav" id="globalNav">
+          <ul class="nav__list">
+            <li><a href="#profile" class="nav__link">プロフィール</a></li>
+            <li><a href="#gallery" class="nav__link">ギャラリー</a></li>
+            <li><a href="#note" class="nav__link">しっぽ便り</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ============================================================
+         2. トップ・メインビジュアル
+         ============================================================ -->
+      <section class="hero">
+        <div class="hero__photo">
+          <img
+            src="images/main.jpg"
+            alt="窓辺でくつろぐ愛猫"
+            class="hero__img"
+          />
+        </div>
+
+        <!-- 写真の上にのせる文字部分 -->
+        <div class="hero__inner">
+          <div class="hero__text">
+            <p class="hero__name">
+              <span class="hero__name-label">Ragdoll</span>
+              フェル
+            </p>
+
+            <h1 class="hero__catch">ふわふわの毎日を、<br />いっしょに。</h1>
+
+            <p class="hero__lead">
+              何気ない毎日も、<br />
+              一緒にいれば特別な時間。<br />
+              ここは、わが家の愛猫との毎日を残す小さな場所です。
+            </p>
+
+            <!-- ボタン（クリックするとプロフィールまでスクロールします） -->
+            <a href="#profile" class="btn btn--primary"
+              >プロフィールを見る<span class="btn__arrow">→</span></a
+            >
+          </div>
+        </div>
+
+        <!-- 右端の縦書きのひとこと（PCのみ表示・不要なら削除OK） -->
+        <!-- <p class="hero__vertical">なんでもない日が、しあわせ。</p> -->
+      </section>
+
+      <!-- ============================================================
+         3. プロフィール
+         ============================================================ -->
+      <section class="section profile" id="profile">
+        <div class="container">
+          <!-- セクションタイトル -->
+          <div class="section-title">
+            <h2 class="section-title__en">Profile</h2>
+            <p class="section-title__memo">about me</p>
+            <p class="section-title__ja">プロフィール</p>
+          </div>
+
+          <div class="profile__top">
+            <div class="profile__photo">
+              <img src="images/profile.jpg" alt="愛猫のプロフィール写真" />
+            </div>
+
+            <div class="profile__intro">
+              <p class="profile__intro-title">はじめまして、ぼくのこと。</p>
+              <p class="profile__intro-text">
+                ふわふわな毛と、のんびりした時間がだいすきです。<br />
+                このページでは、そんなぼくのことを少しだけ紹介します。
+              </p>
+            </div>
+          </div>
+
+          <!-- プロフィールカード
+             ・「dt」が項目名、「dd」が内容です。dd の中の文章を書き換えてください。
+             ・項目を増やしたいときは、<div class="profile-card">〜</div> をまるごとコピーして貼り付けます。 -->
+          <dl class="profile-cards">
+            <div class="profile-card">
+              <dt class="profile-card__label">名前</dt>
+              <dd class="profile-card__value">
+                フェル<span class="profile-card__sub">（Fel）</span>
+              </dd>
+            </div>
+
+            <div class="profile-card">
+              <dt class="profile-card__label">猫種</dt>
+              <dd class="profile-card__value">ラグドール</dd>
+            </div>
+
+            <div class="profile-card">
+              <dt class="profile-card__label">年齢</dt>
+              <dd class="profile-card__value">
+                3さい<span class="profile-card__sub">（2023年1月生まれ）</span>
+              </dd>
+            </div>
+
+            <div class="profile-card">
+              <dt class="profile-card__label">性格</dt>
+              <dd class="profile-card__value profile-card__value--text">
+                ツンデレ。<br />好奇心旺盛だが少し慎重で臆病。
+              </dd>
+            </div>
+
+            <div class="profile-card">
+              <dt class="profile-card__label">好きなこと</dt>
+              <dd class="profile-card__value profile-card__value--text">
+                寝ること、<br />おもちゃで遊ぶこと。
+              </dd>
+            </div>
+
+            <div class="profile-card">
+              <dt class="profile-card__label">好きな場所</dt>
+              <dd class="profile-card__value profile-card__value--text">
+                キャットタワーや爪とぎ、<br />いっしょに暮らす人のそば。
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         4. ギャラリー
+         ============================================================ -->
+      <section class="section gallery" id="gallery">
+        <div class="container">
+          <div class="section-title">
+            <h2 class="section-title__en">Gallery</h2>
+            <p class="section-title__memo">precious days</p>
+            <p class="section-title__ja">お気に入りの写真</p>
+            <p class="section-title__lead">何気ない日々が、特別な思い出に。</p>
+          </div>
+
+          <ul class="gallery__grid">
+            <!-- 【ギャラリー写真1】 -->
+            <li class="gallery__item">
+              <img src="images/gallery01.jpg" alt="ギャラリー写真1" />
+            </li>
+
+            <!-- 【ギャラリー写真2】 -->
+            <li class="gallery__item">
+              <img src="images/gallery02.jpg" alt="ギャラリー写真2" />
+            </li>
+
+            <!-- 【ギャラリー写真3】 -->
+            <li class="gallery__item">
+              <img src="images/gallery03.jpg" alt="ギャラリー写真3" />
+            </li>
+
+            <!-- 【ギャラリー写真4】 -->
+            <li class="gallery__item">
+              <img src="images/gallery04.jpg" alt="ギャラリー写真4" />
+            </li>
+
+            <!-- 【ギャラリー写真5】 -->
+            <li class="gallery__item">
+              <img src="images/gallery05.jpg" alt="ギャラリー写真5" />
+            </li>
+
+            <!-- 【ギャラリー写真6】 -->
+            <li class="gallery__item">
+              <img src="images/gallery06.jpg" alt="ギャラリー写真6" />
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         5. しっぽ便り（note記事）
+         ============================================================ -->
+      <section class="section note" id="note">
+        <div class="container">
+          <div class="section-title">
+            <h2 class="section-title__en">Diary</h2>
+            <p class="section-title__memo">letters from Fel</p>
+            <p class="section-title__ja">しっぽ便り</p>
+            <p class="section-title__lead">
+              愛猫の日常を、猫目線で綴っています。
+            </p>
+          </div>
+
+          <div class="note__cards">
+            <!-- ---------- 記事1 ---------- -->
+            <article class="note-card">
+              <!-- 【note記事1の画像】 -->
+              <div class="note-card__photo">
+                <img src="images/note01.jpg" alt="記事1の写真" />
+              </div>
+              <div class="note-card__body">
+                <time class="note-card__date">2026.07.28</time>
+                <!-- 【note記事1のタイトル】 -->
+                <h3 class="note-card__title">しっぽ便り 第1通</h3>
+                <p class="note-card__text">
+                  「はじめまして、ぼくには、いっしょに暮らす人がいます。」
+                </p>
+                <a
+                  href="https://note.com/fenrir_114/n/n46d12c6f503a"
+                  class="btn btn--small"
+                  target="_blank"
+                  rel="noopener"
+                  >記事を読む<span class="btn__arrow">→</span></a
+                >
+              </div>
+            </article>
+
+            <!-- ---------- 記事2 ---------- -->
+            <article class="note-card">
+              <!-- 【note記事2の画像】 -->
+              <div class="note-card__photo">
+                <img src="images/note02.jpg" alt="記事2の写真" />
+              </div>
+              <div class="note-card__body">
+                <time class="note-card__date">2026.08.15</time>
+                <!-- 【note記事2のタイトル】 -->
+                <h3 class="note-card__title">しっぽ便り 第8通</h3>
+                <p class="note-card__text">「四角いものの正体」</p>
+                <a
+                  href="https://note.com/fenrir_114/n/n8eb7ecd427de"
+                  class="btn btn--small"
+                  target="_blank"
+                  rel="noopener"
+                  >記事を読む<span class="btn__arrow">→</span></a
+                >
+              </div>
+            </article>
+
+            <!-- ---------- 記事3 ---------- -->
+            <article class="note-card">
+              <!-- 【note記事3の画像】 -->
+              <div class="note-card__photo">
+                <img src="images/note03.jpg" alt="記事3の写真" />
+              </div>
+              <div class="note-card__body">
+                <time class="note-card__date">2026.08.25</time>
+                <!-- 【note記事3のタイトル】 -->
+                <h3 class="note-card__title">しっぽ便り 第12通</h3>
+                <p class="note-card__text">「ぼくのよくいる場所」</p>
+                <a
+                  href="https://note.com/fenrir_114/n/n565f0274e0d1"
+                  class="btn btn--small"
+                  target="_blank"
+                  rel="noopener"
+                  >記事を読む<span class="btn__arrow">→</span></a
+                >
+              </div>
+            </article>
+          </div>
+
+          <!-- noteのトップページへのボタン -->
+          <div class="note__more">
+            <a
+              href="https://note.com/fenrir_114"
+              class="btn btn--outline"
+              target="_blank"
+              rel="noopener"
+              >しっぽ便りをもっと読む<span class="btn__arrow">→</span></a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+         6. 最後のメッセージ
+         ============================================================ -->
+      <section class="closing">
+        <div class="closing__photo">
+          <img src="images/last.jpg" alt="窓辺で外を眺める愛猫" />
+        </div>
+
+        <div class="closing__inner">
+          <div class="closing__box">
+            <p class="closing__title">また遊びにきてね。</p>
+
+            <p class="closing__message">
+              今日も見にきてくれてありがとう。<br />
+              また、ぼくの日常をのぞきにきてね。
+            </p>
+
+            <p class="closing__sign">フェル より</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============================================================
+       7. フッター
+       ============================================================ -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <p class="footer__name">しっぽ便り</p>
+        <p class="footer__tagline">愛猫とつくる、やさしい時間。</p>
+
+        <!-- フッターのメニュー -->
+        <!-- <ul class="footer__nav">
+          <li><a href="#profile">プロフィール</a></li>
+          <li><a href="#gallery">ギャラリー</a></li>
+          <li><a href="#note">しっぽ便り</a></li>
+        </ul> -->
+
+        <p class="footer__copy">&copy; 2026 しっぽ便り</p>
+      </div>
+    </footer>
+
+    <!-- ページの先頭へ戻るボタン -->
+    <a href="#top" class="to-top" id="toTop" aria-label="ページの先頭へ戻る"
+      >↑</a
+    >
+
+    <!-- JavaScript（スマホメニューの開閉・画像がないときの表示に使っています） -->
+    <script src="script.js"></script>
+  </body>
+</html>

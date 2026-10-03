@@ -1,0 +1,13 @@
+# 環境変数・秘密情報
+.env
+.env.*
+
+# 依存パッケージ
+node_modules/
+
+# Vercel
+.vercel/
+
+# OS生成ファイル
+.DS_Store
+Thumbs.db

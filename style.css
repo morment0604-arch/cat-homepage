@@ -1,0 +1,1340 @@
+/* ============================================================
+   しっぽ便り｜スタイルシート
+   ------------------------------------------------------------
+   ・色は一番上の「:root」でまとめて管理しています。
+   ・色を変えたいときは :root の中だけ書き換えれば全体に反映されます。
+   ・「【ここを変更】」と書いてある場所が、よく変更する箇所です。
+   ============================================================ */
+
+/* ============================================================
+   1. カラー・共通設定（ここで色をまとめて管理）
+   ============================================================ */
+
+/* ===== 【ここを変更】サイト全体の色 ===== */
+:root {
+  --color-bg: #fafcfd; /* 背景 */
+  --color-blue: #eaf4fa; /* 淡いブルー（セクションの背景など） */
+  --color-gray: #e8eaec; /* ライトグレー（線・写真がないときの背景） */
+  --color-text: #4c5157; /* 文字 */
+  --color-beige: #f5eee7; /* 温かみのあるベージュ（アクセント背景） */
+  --color-accent: #afcfe3; /* アクセントブルー（ボタン・線など） */
+
+  /* 上の色から自動的に作られる補助の色（基本はそのままでOK） */
+  --color-white: #ffffff;
+  --color-text-light: #8a9099; /* 少し薄い文字（日付・説明など） */
+  --color-brown: #a08c7a; /* やわらかい茶色（カテゴリ・肉球など） */
+  --color-accent-dark: #8fb8d4; /* ボタンにマウスを乗せたときの色 */
+
+  /* ===== 【ここを変更】フォント ===== */
+  --font-body:
+    "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Hiragino Sans",
+    "Yu Gothic", "Meiryo", sans-serif; /* 本文 */
+  --font-heading:
+    "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", "游明朝", serif; /* 見出し */
+  --font-accent: "Caveat", cursive; /* 英字の手書き風 */
+
+  /* 角丸・影（やわらかい印象にしています） */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --shadow-soft: 0 6px 24px rgba(76, 81, 87, 0.06);
+  --shadow-hover: 0 10px 30px rgba(76, 81, 87, 0.1);
+
+  /* ヘッダーの高さ（スクロール位置の調整に使います） */
+  --header-height: 72px;
+}
+
+/* ============================================================
+   2. リセット・基本スタイル
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* メニューをクリックしたときに、なめらかにスクロールします */
+  scroll-behavior: smooth;
+  /* ヘッダーの高さ分だけスクロール位置をずらします */
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ページ幅をそろえるための箱 */
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* 各セクションの上下の余白（広めにしています） */
+.section {
+  padding: 96px 0;
+}
+
+/* ============================================================
+   3. 写真がまだないときの見た目
+   ------------------------------------------------------------
+   画像ファイルが見つからないときは、script.js が
+   親の箱に「is-missing」というクラスを付けます。
+   すると、うすいベージュ＋肉球マークだけの表示になります。
+   ============================================================ */
+
+.hero__photo,
+.profile__photo,
+.gallery__item,
+.note-card__photo,
+.closing__photo {
+  background-color: var(--color-beige);
+  position: relative;
+}
+
+.is-missing img {
+  display: none;
+}
+
+.is-missing::after {
+  /* 肉球マーク（SVG）をうすく表示 */
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 48px;
+  height: 48px;
+  opacity: 0.35;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%23A08C7A'%3E%3Cellipse cx='20' cy='22' rx='6.5' ry='8'/%3E%3Cellipse cx='44' cy='22' rx='6.5' ry='8'/%3E%3Cellipse cx='9' cy='36' rx='5.5' ry='7'/%3E%3Cellipse cx='55' cy='36' rx='5.5' ry='7'/%3E%3Cpath d='M32 30c-9 0-17 8-17 16 0 6 4 9 8 9 3 0 6-2 9-2s6 2 9 2c4 0 8-3 8-9 0-8-8-16-17-16z'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   4. 共通パーツ（ボタン・セクションタイトル）
+   ============================================================ */
+
+/* ----- ボタン ----- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.btn__arrow {
+  font-size: 13px;
+  transition: transform 0.3s;
+}
+
+.btn:hover .btn__arrow {
+  transform: translateX(4px);
+}
+
+/* 青いボタン */
+.btn--primary {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn--primary:hover {
+  background-color: var(--color-accent-dark);
+  transform: translateY(-2px);
+}
+
+/* 線だけのボタン */
+.btn--outline {
+  border: 1px solid var(--color-accent);
+  color: var(--color-text);
+  background-color: var(--color-white);
+}
+
+.btn--outline:hover {
+  background-color: var(--color-blue);
+}
+
+/* カードの中の小さいボタン */
+.btn--small {
+  padding: 9px 20px;
+  font-size: 13px;
+  border: 1px solid var(--color-accent);
+  background-color: var(--color-white);
+  color: var(--color-text);
+}
+
+.btn--small:hover {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+}
+
+/* ----- セクションタイトル ----- */
+.section-title {
+  margin-bottom: 48px;
+}
+
+.section-title__en {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 36px;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+.section-title__ja {
+  margin-top: 6px;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--color-text-light);
+}
+
+/* タイトルの下の短い線 */
+.section-title__ja::after {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 2px;
+  margin-top: 14px;
+  border-radius: 2px;
+  background-color: var(--color-accent);
+}
+
+.section-title__lead {
+  margin-top: 18px;
+  font-size: 15px;
+}
+
+/* ============================================================
+   5. ヘッダー
+   ============================================================ */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-height);
+  background-color: rgba(250, 252, 253, 0.85); /* 少し透ける白 */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(232, 234, 236, 0.7);
+}
+
+.header__inner {
+  max-width: 1120px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* サイト名 */
+.logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.logo__name {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.logo__tagline {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--color-text-light);
+}
+
+/* メニュー */
+.nav__list {
+  display: flex;
+  gap: 36px;
+}
+
+.nav__link {
+  position: relative;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  padding: 6px 0;
+}
+
+/* メニューにマウスを乗せると下線がのびます */
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s;
+}
+
+.nav__link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ハンバーガーボタン（PCでは非表示） */
+.menu-btn {
+  display: none;
+  width: 44px;
+  height: 44px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.menu-btn__bar {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  border-radius: 2px;
+  background-color: var(--color-text);
+  transition:
+    transform 0.3s,
+    opacity 0.3s;
+}
+
+/* メニューが開いたときは「×」の形になります */
+.menu-btn.is-open .menu-btn__bar:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+.menu-btn.is-open .menu-btn__bar:nth-child(2) {
+  opacity: 0;
+}
+.menu-btn.is-open .menu-btn__bar:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ============================================================
+   6. トップ・メインビジュアル
+   ============================================================ */
+
+.hero {
+  position: relative;
+  /* 高さ：画面の82%（ただし 560px〜760px の範囲におさめます） */
+  /* ===== 【ここを変更】トップ写真の高さ ===== */
+  min-height: clamp(560px, 82vh, 760px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  /* 写真がないときは、うすい青のグラデーションが背景になります */
+  background: linear-gradient(
+    135deg,
+    var(--color-blue) 0%,
+    var(--color-bg) 60%,
+    var(--color-beige) 100%
+  );
+}
+
+/* 写真（背景いっぱいに表示） */
+.hero__photo {
+  position: absolute;
+  inset: 0;
+  background-color: transparent;
+}
+
+.hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* ===== 【ここを変更】写真のどこを中心に表示するか（例：center / right center / 70% 40%） ===== */
+  object-position: 70% 40%;
+}
+
+/* 写真の左側を白くぼかして、文字を読みやすくします */
+.hero__photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(250, 252, 253, 0.92) 0%,
+    rgba(250, 252, 253, 0.75) 30%,
+    rgba(250, 252, 253, 0.2) 60%,
+    rgba(250, 252, 253, 0) 100%
+  );
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.hero__text {
+  max-width: 520px;
+}
+
+/* 愛猫の名前 */
+.hero__name {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  letter-spacing: 0.15em;
+}
+
+.hero__name-label {
+  font-family: var(--font-accent);
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  color: var(--color-brown);
+}
+
+/* 名前の前の小さな肉球 */
+.hero__name::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  align-self: center;
+  opacity: 0.6;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%23A08C7A'%3E%3Cellipse cx='20' cy='22' rx='6.5' ry='8'/%3E%3Cellipse cx='44' cy='22' rx='6.5' ry='8'/%3E%3Cellipse cx='9' cy='36' rx='5.5' ry='7'/%3E%3Cellipse cx='55' cy='36' rx='5.5' ry='7'/%3E%3Cpath d='M32 30c-9 0-17 8-17 16 0 6 4 9 8 9 3 0 6-2 9-2s6 2 9 2c4 0 8-3 8-9 0-8-8-16-17-16z'/%3E%3C/svg%3E");
+}
+
+/* キャッチコピー */
+.hero__catch {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 44px;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  margin-bottom: 24px;
+}
+
+/* 紹介文 */
+.hero__lead {
+  font-size: 15px;
+  line-height: 2.1;
+  margin-bottom: 36px;
+}
+
+/* 右端の縦書きのひとこと */
+.hero__vertical {
+  position: absolute;
+  right: 40px;
+  top: 64px;
+  z-index: 1;
+  writing-mode: vertical-rl;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  color: var(--color-text);
+  opacity: 0.8;
+}
+
+/* ============================================================
+   7. プロフィール
+   ============================================================ */
+
+.profile {
+  background-color: var(--color-blue);
+}
+
+.profile__top {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  margin-bottom: 48px;
+}
+
+/* 丸い写真 */
+.profile__photo {
+  flex-shrink: 0;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 8px solid var(--color-white);
+  box-shadow: var(--shadow-soft);
+}
+
+.profile__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile__intro-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+}
+
+/* 見出しの両端に「＼ ／」を付けます */
+.profile__intro-title::before {
+  content: "＼ ";
+  color: var(--color-accent);
+}
+.profile__intro-title::after {
+  content: " ／";
+  color: var(--color-accent);
+}
+
+.profile__intro-text {
+  font-size: 15px;
+  line-height: 2.1;
+}
+
+/* プロフィールカード */
+.profile-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.profile-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 28px 26px;
+  box-shadow: var(--shadow-soft);
+}
+
+.profile-card__label {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--color-text-light);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 項目名の前の小さな点 */
+.profile-card__label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+.profile-card__value {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+}
+
+/* 文章が長い項目は本文フォントで少し小さく */
+.profile-card__value--text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.profile-card__sub {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-text-light);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   8. ギャラリー
+   ============================================================ */
+
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.gallery__item {
+  aspect-ratio: 4 / 3; /* 写真の縦横比（そろえて表示） */
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 写真の表示位置をカード内で 10px 下にずらす
+     （画像サイズ・カードサイズは変えず、切り抜く位置だけを調整。
+       元の位置に戻すときは object-position を削除するか center にする） */
+  /* object-position: center calc(50% + 10px); */
+  transition: transform 0.6s ease;
+}
+
+/* 3枚目（gallery03.jpg）はカードと同じ 4:3 の横長写真で、
+   上下にはみ出す部分がないため、下にずらすと上に 10px の隙間ができてしまう。
+   この写真だけは元の位置（中央）のままにする。
+   ※写真を入れ替えて縦長にした場合は、この指定を削除してOK */
+.gallery__item:nth-child(3) img {
+  object-position: center;
+}
+
+/* 2枚目・5枚目の写真だけ、表示位置を中央から 10px 下にずらす
+   （画像サイズ・カードサイズは変えず、切り抜く位置だけを調整） */
+.gallery__item:nth-child(2) img,
+.gallery__item:nth-child(5) img {
+  object-position: center calc(50% + 20px);
+}
+
+/* 6枚目の写真だけ、表示位置を中央から 20px 上にずらす */
+.gallery__item:nth-child(6) img {
+  object-position: center calc(50% - 20px);
+}
+
+/* マウスを乗せると、ほんの少しだけ拡大します */
+.gallery__item:hover img {
+  transform: scale(1.04);
+}
+
+/* ============================================================
+   9. しっぽ便り（note記事）
+   ============================================================ */
+
+.note {
+  background-color: var(--color-beige);
+}
+
+.note__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.note-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.note-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.note-card__photo {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+
+.note-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.note-card__body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 24px 24px 28px;
+}
+
+.note-card__date {
+  font-family: var(--font-accent);
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  color: var(--color-text-light);
+  margin-bottom: 6px;
+}
+
+.note-card__title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.note-card__text {
+  font-size: 14px;
+  color: var(--color-text);
+  margin-bottom: 20px;
+  flex-grow: 1; /* ボタンをカードの下にそろえます */
+}
+
+.note-card .btn {
+  align-self: flex-start;
+}
+
+.note__more {
+  text-align: center;
+  margin-top: 48px;
+}
+
+/* ============================================================
+   10. 最後のメッセージ
+   ============================================================ */
+
+.closing {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-blue), var(--color-beige));
+}
+
+.closing__photo {
+  position: absolute;
+  inset: 0;
+  background-color: transparent;
+}
+
+.closing__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* ===== 【ここを変更】写真のどこを中心に表示するか ===== */
+  object-position: 30% center;
+}
+
+/* 写真の右側を白くぼかして、文字を読みやすくします */
+.closing__photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to left,
+    rgba(250, 252, 253, 0.9) 0%,
+    rgba(250, 252, 253, 0.6) 40%,
+    rgba(250, 252, 253, 0) 75%
+  );
+}
+
+.closing__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.closing__box {
+  max-width: 440px;
+  text-align: center;
+}
+
+.closing__title {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  letter-spacing: 0.12em;
+  margin-bottom: 20px;
+}
+
+.closing__message {
+  font-size: 15px;
+  line-height: 2.2;
+}
+
+.closing__sign {
+  margin-top: 24px;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  letter-spacing: 0.2em;
+  color: var(--color-text-light);
+}
+
+/* ============================================================
+   11. フッター
+   ============================================================ */
+
+.footer {
+  background-color: var(--color-bg);
+  border-top: 1px solid var(--color-gray);
+  padding: 56px 0 40px;
+  text-align: center;
+}
+
+.footer__name {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  letter-spacing: 0.1em;
+}
+
+.footer__tagline {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: var(--color-text-light);
+  margin-top: 4px;
+}
+
+.footer__nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  margin: 28px 0;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+
+.footer__nav a:hover {
+  color: var(--color-accent-dark);
+}
+
+.footer__copy {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--color-text-light);
+}
+
+/* ============================================================
+   12. ページの先頭へ戻るボタン
+   ============================================================ */
+
+.to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 90;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-accent);
+  color: var(--color-text);
+  font-size: 16px;
+  box-shadow: var(--shadow-soft);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s,
+    visibility 0.3s,
+    background-color 0.3s;
+}
+
+/* 少しスクロールすると script.js がこのクラスを付けて表示します */
+.to-top.is-show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.to-top:hover {
+  background-color: var(--color-blue);
+}
+
+/* ============================================================
+   13. レスポンシブ（タブレット・スマートフォン）
+   ------------------------------------------------------------
+   画面幅に応じて、列の数や文字の大きさを変えています。
+   ============================================================ */
+
+/* ----- タブレット（〜960px） ----- */
+@media (max-width: 960px) {
+  .section {
+    padding: 80px 0;
+  }
+
+  .hero__catch {
+    font-size: 38px;
+  }
+
+  .profile__top {
+    gap: 40px;
+  }
+
+  .profile__photo {
+    width: 220px;
+    height: 220px;
+  }
+
+  .profile-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero__vertical {
+    display: none;
+  }
+}
+
+/* ----- スマートフォン（〜768px） ----- */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 64px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  .section {
+    padding: 64px 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  /* --- ヘッダー：ハンバーガーメニューに切り替え --- */
+  .header__inner {
+    padding: 0 20px;
+  }
+
+  .logo__name {
+    font-size: 21px;
+  }
+
+  .menu-btn {
+    display: flex;
+  }
+
+  .nav {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background-color: rgba(250, 252, 253, 0.97);
+    border-bottom: 1px solid var(--color-gray);
+    box-shadow: var(--shadow-soft);
+    /* 閉じているときは上に隠しておきます */
+    transform: translateY(-16px);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      transform 0.3s,
+      opacity 0.3s,
+      visibility 0.3s;
+  }
+
+  .nav.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav__list {
+    flex-direction: column;
+    gap: 0;
+    padding: 12px 0;
+  }
+
+  .nav__link {
+    display: block;
+    padding: 14px 24px;
+    font-size: 15px;
+  }
+
+  .nav__link::after {
+    display: none;
+  }
+
+  /* --- トップ --- */
+  .hero {
+    min-height: auto;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero__photo {
+    /* スマホでは写真を上に、文字を下に配置します */
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+
+  .hero__photo::before {
+    /* 写真の下側を白くぼかします */
+    background: linear-gradient(
+      to bottom,
+      rgba(250, 252, 253, 0) 60%,
+      rgba(250, 252, 253, 1) 100%
+    );
+  }
+
+  .hero__img {
+    object-position: center;
+  }
+
+  .hero__inner {
+    padding: 8px 20px 56px;
+  }
+
+  .hero__text {
+    max-width: 100%;
+  }
+
+  .hero__catch {
+    font-size: 30px;
+  }
+
+  .hero__lead {
+    font-size: 14px;
+  }
+
+  /* スマホでは <br> の改行を無視して、自然に折り返します
+     （スマホでも <br> の位置で改行したい場合は、この2行を削除してください） */
+  .hero__lead br,
+  .profile__intro-text br,
+  .closing__message br {
+    display: none;
+  }
+
+  /* --- セクションタイトル --- */
+  .section-title {
+    margin-bottom: 36px;
+  }
+
+  .section-title__en {
+    font-size: 30px;
+  }
+
+  /* --- プロフィール --- */
+  .profile__top {
+    flex-direction: column;
+    text-align: center;
+    gap: 28px;
+    margin-bottom: 36px;
+  }
+
+  .profile__photo {
+    width: 200px;
+    height: 200px;
+  }
+
+  .profile__intro-title {
+    font-size: 19px;
+  }
+
+  .profile-cards {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .profile-card {
+    padding: 22px 22px;
+  }
+
+  /* --- ギャラリー：2列 --- */
+  .gallery__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .gallery__item {
+    border-radius: var(--radius-sm);
+  }
+
+  /* --- しっぽ便り：1列 --- */
+  .note__cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .note__more {
+    margin-top: 36px;
+  }
+
+  /* --- 最後のメッセージ --- */
+  .closing {
+    min-height: auto;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .closing__photo {
+    position: relative;
+    width: 100%;
+    height: 240px;
+  }
+
+  .closing__photo img {
+    object-position: center;
+  }
+
+  .closing__photo::before {
+    background: linear-gradient(
+      to bottom,
+      rgba(250, 252, 253, 0) 60%,
+      rgba(250, 252, 253, 1) 100%
+    );
+  }
+
+  .closing__inner {
+    justify-content: center;
+    padding: 8px 20px 56px;
+  }
+
+  .closing__title {
+    font-size: 26px;
+  }
+
+  .closing__message {
+    font-size: 14px;
+  }
+
+  /* --- フッター --- */
+  .footer {
+    padding: 44px 0 32px;
+  }
+
+  /* --- 先頭へ戻るボタン --- */
+  .to-top {
+    right: 16px;
+    bottom: 16px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ----- 小さめのスマートフォン（〜400px） ----- */
+@media (max-width: 400px) {
+  .hero__catch {
+    font-size: 26px;
+  }
+}
+
+/* ============================================================
+   14. 上品でやさしい装飾
+   ------------------------------------------------------------
+   既存の配色と余白を保ちながら、肉球・ぼかし・写真の重なりを
+   控えめに追加しています。
+   ============================================================ */
+
+/* セクション端の装飾が内容の背面に収まるようにします */
+.section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* 背景の端に、大・中・小の淡いぼかし丸を散らして配置します */
+.section::before,
+.section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* 淡い色は保ちつつ、背景の丸が見えるよう不透明度を80％にします */
+  opacity: 0.8;
+}
+
+.section::before {
+  background:
+    radial-gradient(
+      circle 112px at 1% 18%,
+      rgba(175, 207, 227, 0.28) 0 62%,
+      transparent 78%
+    ),
+    radial-gradient(
+      circle 42px at 9% 70%,
+      rgba(232, 216, 199, 0.38) 0 58%,
+      transparent 78%
+    ),
+    radial-gradient(
+      circle 26px at 17% 38%,
+      rgba(175, 207, 227, 0.3) 0 55%,
+      transparent 78%
+    );
+}
+
+.section::after {
+  background:
+    radial-gradient(
+      circle 92px at 99% 76%,
+      rgba(232, 216, 199, 0.36) 0 62%,
+      transparent 78%
+    ),
+    radial-gradient(
+      circle 48px at 92% 28%,
+      rgba(175, 207, 227, 0.26) 0 58%,
+      transparent 78%
+    ),
+    radial-gradient(
+      circle 24px at 84% 88%,
+      rgba(232, 216, 199, 0.38) 0 55%,
+      transparent 78%
+    );
+}
+
+/* セクションごとに配置を反転し、丸が規則的に並ばないようにします */
+.gallery::before {
+  transform: scaleX(-1);
+}
+
+.profile::after,
+.note::after {
+  transform: scaleY(-1);
+}
+
+/* 見出しのそばに、小さく落ち着いた色の肉球を添えます */
+.section-title__en {
+  display: inline-flex;
+  align-items: center;
+}
+
+.section-title__en::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+  flex: 0 0 auto;
+  opacity: 0.46;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='%238FB8D4'%3E%3Cellipse cx='20' cy='22' rx='6.5' ry='8'/%3E%3Cellipse cx='44' cy='22' rx='6.5' ry='8'/%3E%3Cellipse cx='9' cy='36' rx='5.5' ry='7'/%3E%3Cellipse cx='55' cy='36' rx='5.5' ry='7'/%3E%3Cpath d='M32 30c-9 0-17 8-17 16 0 6 4 9 8 9 3 0 6-2 9-2s6 2 9 2c4 0 8-3 8-9 0-8-8-16-17-16z'/%3E%3C/svg%3E");
+}
+
+/* 英字見出し横のメモを、控えめなアクセントとして整えます */
+.section-title__memo {
+  display: inline-block;
+  margin-left: 12px;
+  font-family: var(--font-accent);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--color-brown);
+  opacity: 0.72;
+  vertical-align: 0.2em;
+}
+
+/* 見出し下の線を、細く短いグラデーションに整えます */
+.section-title__ja::after {
+  width: 42px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    var(--color-accent),
+    rgba(175, 207, 227, 0.2)
+  );
+}
+
+/* プロフィール写真の後ろに、淡いベージュの円を少しずらして重ねます */
+.profile__photo {
+  box-shadow:
+    14px 12px 0 rgba(232, 216, 199, 0.58),
+    var(--shadow-soft);
+}
+
+/* ギャラリー写真の後ろに、淡い色の角丸図形をずらして重ねます */
+.gallery__item {
+  box-shadow:
+    7px 7px 0 rgba(175, 207, 227, 0.24),
+    var(--shadow-soft);
+}
+
+.gallery__item:nth-child(2n) {
+  box-shadow:
+    7px 7px 0 rgba(232, 216, 199, 0.34),
+    var(--shadow-soft);
+}
+
+/* スマートフォンでは装飾を小さくし、本文や写真の余白を守ります */
+@media (max-width: 768px) {
+  .section::before,
+  .section::after {
+    /* スマートフォンでも背景の丸の不透明度を80％に保ちます */
+    opacity: 0.8;
+  }
+
+  /* PC表示は変えず、スマートフォンのトップ写真だけ高さを小さくします */
+  .hero__photo {
+    height: clamp(170px, 46vw, 260px);
+    aspect-ratio: auto;
+  }
+
+  .section-title__en::before {
+    width: 15px;
+    height: 15px;
+    margin-right: 9px;
+  }
+
+  .section-title__memo {
+    margin-left: 8px;
+    font-size: 14px;
+  }
+
+  .profile__photo {
+    box-shadow:
+      9px 8px 0 rgba(232, 216, 199, 0.52),
+      var(--shadow-soft);
+  }
+
+  .gallery__item,
+  .gallery__item:nth-child(2n) {
+    box-shadow:
+      4px 4px 0 rgba(175, 207, 227, 0.22),
+      var(--shadow-soft);
+  }
+}
+
+/* 小さな画面では見出し横メモの間隔をさらに詰めます */
+@media (max-width: 400px) {
+  .section-title__memo {
+    margin-left: 6px;
+    font-size: 13px;
+  }
+}
